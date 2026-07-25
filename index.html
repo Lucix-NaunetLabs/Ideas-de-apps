@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>App Vault</title>
+<meta name="theme-color" content="#FFD000">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icono.png">
+<link rel="apple-touch-icon" href="icono.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== PANTALLA LISTA ===== -->
+<main id="screen-list" class="screen screen--active" aria-label="Lista de ideas">
+  <header class="topbar">
+    <div class="topbar__spacer" aria-hidden="true"></div>
+    <h1 class="topbar__title">App Vault</h1>
+    <button id="btn-new" class="btn btn--primary btn--new" type="button">
+      <span aria-hidden="true">+</span> Nueva Idea
+    </button>
+  </header>
+
+  <section id="idea-list" class="idea-list" aria-live="polite">
+    <!-- Las tarjetas de idea se insertan aquí vía JS -->
+  </section>
+
+  <p id="empty-state" class="empty-state" hidden>
+    Todavía no hay ideas guardadas.<br>
+    Pulsa <strong>+ Nueva Idea</strong> para empezar tu bóveda.
+  </p>
+</main>
+
+<!-- ===== PANTALLA DETALLE ===== -->
+<section id="screen-detail" class="screen" aria-label="Detalle de la idea">
+  <header class="detail-header">
+    <button id="btn-back" class="btn btn--ghost" type="button">&larr; Volver</button>
+  </header>
+
+  <article class="detail-card">
+    <h2 class="detail-name">
+      <span id="detail-swatch" class="swatch swatch--inline" aria-hidden="true"></span>
+      <span id="detail-nombre"></span>
+    </h2>
+    <p class="detail-category" id="detail-categoria"></p>
+
+    <div class="detail-block">
+      <h3>Concepto</h3>
+      <p id="detail-concepto"></p>
+    </div>
+
+    <div class="detail-block">
+      <h3>Problema que resuelve</h3>
+      <p id="detail-problema"></p>
+    </div>
+
+    <div class="detail-block detail-block--meta">
+      <h3>Guardada</h3>
+      <p id="detail-fecha"></p>
+    </div>
+
+    <button id="btn-delete" class="btn btn--danger" type="button">Eliminar idea</button>
+  </article>
+</section>
+
+<!-- ===== MODAL NUEVA IDEA ===== -->
+<div id="modal-overlay" class="overlay" hidden>
+  <div id="modal-new" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal__header">
+      <h2 id="modal-title">Nueva idea</h2>
+      <button id="btn-close-modal" class="btn-icon" type="button" aria-label="Cerrar">&times;</button>
+    </div>
+
+    <form id="form-new-idea" class="form">
+      <label class="field">
+        <span class="field__label">Nombre de la idea</span>
+        <input type="text" id="input-nombre" placeholder="App reto 30 días" maxlength="60" required>
+      </label>
+
+      <label class="field">
+        <span class="field__label">Concepto en 1 frase</span>
+        <input type="text" id="input-concepto" placeholder="App motivacional con retos guiados de 15 min" maxlength="140" required>
+      </label>
+
+      <label class="field">
+        <span class="field__label">Problema que resuelve</span>
+        <textarea id="input-problema" rows="3" placeholder="Me da pereza ordenar el cuarto porque no sé por dónde empezar" maxlength="400" required></textarea>
+      </label>
+
+      <fieldset class="field">
+        <legend class="field__label">Categoría</legend>
+        <div id="chip-group" class="chip-group">
+          <button type="button" class="chip" data-category="PWA">PWA</button>
+          <button type="button" class="chip" data-category="Juego">Juego</button>
+          <button type="button" class="chip" data-category="Productividad">Productividad</button>
+          <button type="button" class="chip" data-category="IA">IA</button>
+          <button type="button" class="chip" data-category="Otra">Otra</button>
+        </div>
+      </fieldset>
+
+      <p id="form-error" class="form-error" hidden></p>
+
+      <button type="submit" class="btn btn--primary btn--full">Guardar Idea</button>
+    </form>
+  </div>
+</div>
+
+<!-- ===== MODAL CONFIRMAR ELIMINAR ===== -->
+<div id="confirm-overlay" class="overlay" hidden>
+  <div class="modal modal--confirm" role="alertdialog" aria-modal="true" aria-labelledby="confirm-title">
+    <h2 id="confirm-title">¿Eliminar esta idea?</h2>
+    <p>Esta acción no se puede deshacer.</p>
+    <div class="modal__actions">
+      <button id="btn-confirm-cancel" class="btn btn--ghost" type="button">Cancelar</button>
+      <button id="btn-confirm-delete" class="btn btn--danger" type="button">Eliminar</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
